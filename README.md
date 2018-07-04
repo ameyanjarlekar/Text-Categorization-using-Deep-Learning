@@ -1,57 +1,84 @@
 # 20Newsgroupsprac
-
-
-
-
-
-
-
-
-
-
 import numpy as np
+
 import math
+
 from sklearn.datasets import fetch_20newsgroups
+
 cat = ['alt.atheism',
  'comp.graphics',
  'misc.forsale',
  'rec.autos',
  'rec.sport.baseball']
+ 
 newsgroups_train = fetch_20newsgroups(subset="train",categories=cat)
+
 newsgroups_test = fetch_20newsgroups(subset="test",categories=cat)
+
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 vectorizer = TfidfVectorizer(max_features=1000)
+
 vectors = vectorizer.fit_transform(newsgroups_train.data)
+
 testvectors = vectorizer.fit_transform(newsgroups_test.data)
+
 #print(vectors.shape)
+
 #theta_1 = np.ones((5,1000))*0.01
+
 theta_1 = np.random.rand(10,1000)*0.01
+
 #theta_2 = np.random.rand(5,5)*0.01
+
 #theta_3 = np.random.rand(5,5)*0.01
+
 #theta_4 = np.random.rand(5,5)*0.01
+
 theta_5 = np.random.rand(5,10)*0.01
+
 theta_01 = np.random.rand(10,2840)*0.01
+
 #theta_02 = np.random.rand(5,2840)*0.01
+
 #theta_03 = np.random.rand(5,2840)*0.01
+
 #theta_04 = np.random.rand(5,2840)*0.01
+
 theta_05 = np.random.rand(5,2840)*0.01
+
 tracker = 0
+
 #total examples = 2840
+
 while tracker < 100000 :       
-    v = vectors.toarray()
+
+    v = vectors.toarray
+    
     a1 = np.dot(theta_1,v.T) + theta_01
+    
     #print(a1.shape)
+    
     i = 0
+    
     j = 0
+    
     g1 = np.random.rand(10,2840)
+    
     g1d = np.random.rand(10,2840)
+    
     while j < 2840 :
+    
         while i < 10 :
+        
             g1[i][j] = 1/(1 + math.exp(-a1[i][j]))
+            
             g1d[i][j] = g1[i][j]*(1-g1[i][j])
+            
             i = i+1
         
         j = j + 1
+        
         i = 0
     
     #a2 = np.dot(theta_2,g1)+ theta_02
