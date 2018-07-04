@@ -27,14 +27,8 @@ theta_01 = np.random.rand(10,2840)*0.01
 theta_05 = np.random.rand(5,2840)*0.01
 tracker = 0
 #total examples = 2840
-while tracker < 100000 :
-   
-    
-    #print(theta_1.shape)
-    #print(v.shape)
-
+while tracker < 100000 :       
     v = vectors.toarray()
-
     a1 = np.dot(theta_1,v.T) + theta_01
     #print(a1.shape)
     i = 0
@@ -351,11 +345,6 @@ while tracker < 100000 :
     l03 = 0.5
     l04 = 0.5
     l05 = 0.5
-    #print(D5[1][1]/2840)
-    #print(D4[1][1]/2840)
-    #print(D3[1][1]/2840)
-    #print(D2[1][1]/2840)
-    #print(D1[1][1]/2840)
     theta_1 = (1-l/28400)*theta_1 - (l1/28400)*D1
     
     #theta_2 = (1-l/28400)*theta_2 - (l2/28400)*D2 
