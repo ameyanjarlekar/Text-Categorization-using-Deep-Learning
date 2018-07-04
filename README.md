@@ -1,4 +1,14 @@
 # 20Newsgroupsprac
+
+
+
+
+
+
+
+
+
+
 import numpy as np
 import math
 from sklearn.datasets import fetch_20newsgroups
