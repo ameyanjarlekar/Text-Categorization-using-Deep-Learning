@@ -1,9 +1,6 @@
 # 20Newsgroupsprac
-# 20Newsgroupsprac
 import numpy as np
 import math
-
-
 from sklearn.datasets import fetch_20newsgroups
 cat = ['alt.atheism',
  'comp.graphics',
@@ -373,120 +370,7 @@ while tracker < 100000 :
     theta_05 = theta_05 - (l05/28400)*d5
     
     print(tracker )
-    if (tracker % 100) == 0:
-        print(ans[7][0])
-        print(ans[7][1])
-        print(ans[7][2])
-        print(ans[7][3])
-        print(ans[7][4])
-        print(g5[0][7])
-        print(g5[1][7])
-        print(g5[2][7])
-        print(g5[3][7])
-        print(g5[4][7]) 
-        print(ans[8][0])
-        print(ans[8][1])
-        print(ans[8][2])
-        print(ans[8][3])
-        print(ans[8][4])
-        print(g5[0][8])
-        print(g5[1][8])
-        print(g5[2][8])
-        print(g5[3][8])
-        print(g5[4][8]) 
-        print(ans[9][0])
-        print(ans[9][1])
-        print(ans[9][2])
-        print(ans[9][3])
-        print(ans[9][4])
-        print(g5[0][9])
-        print(g5[1][9])
-        print(g5[2][9])
-        print(g5[3][9])
-        print(g5[4][9])
-    tracker = tracker + 1
 
-print(ans[7][0])
-    
-print(ans[7][1])
-    
-print(ans[7][2])
-print(ans[7][3])
-    
-print(ans[7][4])
-    
-print(g5[0][7])
-    
-print(g5[1][7])
-    
-print(g5[2][7])
-    
-print(g5[3][7])
-
-    
-print(g5[4][7]) 
-    
-print(ans[8][0])
-    
-print(ans[8][1])
-    
-print(ans[8][2])
-    
-print(ans[8][3])
-    
-print(ans[8][4])
-    
-print(g5[0][8])
-    
-print(g5[1][8])
-    
-print(g5[2][8])
-    
-print(g5[3][8])
-    
-print(g5[4][8]) 
-    
-print(ans[9][0])
-    
-print(ans[9][1])
-    
-print(ans[9][2])
-    
-print(ans[9][3])
-    
-print(ans[9][4])
-    
-print(g5[0][9])
-    
-print(g5[1][9])
-    
-print(g5[2][9])
-    
-print(g5[3][9])
-    
-print(g5[4][9])
-    #print(ans[10][0])
-    #print(ans[10][1])
-    #print(ans[10][2])
-    #print(ans[10][3])    
-    #print(ans[10][4])
-    #print(g5[0][10])
-    #print(g5[1][10])
-    #print(g5[2][10])
-    #print(g5[3][10])
-    #print(g5[4][10])
-    #print(ans[11][0])
-    #print(ans[11][1])
-    #print(ans[11][2])
-    #print(ans[11][3])
-    #print(ans[11][4])
-    #print(g5[0][11])
-    #print(g5[1][11])
-    #print(g5[2][11])
-    #print(g5[3][11])
-    #print(g5[4][11])
-    
-    
-    
+    tracker = tracker + 1      
 print("test")
     
