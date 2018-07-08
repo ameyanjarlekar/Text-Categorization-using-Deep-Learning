@@ -1,171 +1,96 @@
 # 20Newsgroupsprac
 import numpy as np
-
 import math
 
+
 from sklearn.datasets import fetch_20newsgroups
-
 cat = ['alt.atheism',
- 'comp.graphics',
- 'misc.forsale',
  'rec.autos',
- 'rec.sport.baseball']
- 
-newsgroups_train = fetch_20newsgroups(subset="train",categories=cat)
-
-newsgroups_test = fetch_20newsgroups(subset="test",categories=cat)
-
+ 'sci.electronics',
+'talk.politics.guns',
+'soc.religion.christian']
+newsgroups_train = fetch_20newsgroups(subset="train",categories = cat)
+newsgroups_test = fetch_20newsgroups(subset="test", categories = cat)
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import accuracy_score
+vectorizer = TfidfVectorizer(max_features=29000)
 
-vectorizer = TfidfVectorizer(max_features=1000)
-
+# max is 90000
+# 11314 and 7532
 vectors = vectorizer.fit_transform(newsgroups_train.data)
+#vectors3 = vectors4.toarray()
+#brown = [[1]]*2810
+#vectors2 = vectors3.tolist()
+#vectors4 = np.array(vectors2)
+#print(vectors4.shape)
+#vectors1 = vectors4.tolist()
 
+#vectors = [[0]]*2810
+#bit = 0
+#while bit < 2810:
+#    vectors[bit] = brown[bit] + vectors3[bit].tolist()
+#    bit = bit +1
+#print(vectors[5].shape)
+#print(vectors3[5].shape)
+#vectors = np.array(vectors2)    
+# subtract by average divide by variance
 testvectors = vectorizer.fit_transform(newsgroups_test.data)
+#testvectors3 = testvectors4.toarray()
+#testvectors1 = testvectors4.tolist()
+#white = [[1]]*1870
+#testvectors = [[0]]*1870
+#bi =0
+#while bi < 1870:
+#    testvectors[bi] = white[bi] + testvectors3[bi]
+#    bi = bi +1
+#testvectors = np.array(testvectors2)
 
-#print(vectors.shape)
+#initialisation -1 to 1 
+theta_1 = 2*np.random.rand(20,29001)-1
+theta_2 = 2*np.random.rand(20,20)-1
+theta_3 = 2*np.random.rand(20,20)-1
+theta_4 = 2*np.random.rand(20,20)-1
+theta_6 = 2*np.random.rand(20,20)-1
+theta_5 = 2*np.random.rand(5,20)-1
+tracker = 0 
 
-#theta_1 = np.ones((5,1000))*0.01
-
-theta_1 = np.random.rand(10,1000)*0.01
-
-#theta_2 = np.random.rand(5,5)*0.01
-
-#theta_3 = np.random.rand(5,5)*0.01
-
-#theta_4 = np.random.rand(5,5)*0.01
-
-theta_5 = np.random.rand(5,10)*0.01
-
-theta_01 = np.random.rand(10,2840)*0.01
-
-#theta_02 = np.random.rand(5,2840)*0.01
-
-#theta_03 = np.random.rand(5,2840)*0.01
-
-#theta_04 = np.random.rand(5,2840)*0.01
-
-theta_05 = np.random.rand(5,2840)*0.01
-
-tracker = 0
+#9920553846
 
 #total examples = 2840
+while tracker < 10000 :
+   
+    
+    #print(theta_1.shape)
+    #print(v.shape)
 
-while tracker < 100000 :       
+    v = np.array(vectors)
+    print(v.shape)
+    g1 =  1/(1 + np.exp(- np.dot(theta_1,v.T) ))
+    g2 =  1/(1 + np.exp(- np.dot(theta_2,g1) ))
+    g3 =  1/(1 + np.exp(- np.dot(theta_3,g2) ))
+    g4 =  1/(1 + np.exp(- np.dot(theta_4,g3) ))
+    g6 =  1/(1 + np.exp(- np.dot(theta_6,g4) ))
+    g5 =  1/(1 + np.exp(-np.dot(theta_5,g6)))
 
-    v = vectors.toarray
-    
-    a1 = np.dot(theta_1,v.T) + theta_01
-    
-    #print(a1.shape)
-    
-    i = 0
-    
-    j = 0
-    
-    g1 = np.random.rand(10,2840)
-    
-    g1d = np.random.rand(10,2840)
-    
-    while j < 2840 :
-    
-        while i < 10 :
-        
-            g1[i][j] = 1/(1 + math.exp(-a1[i][j]))
-            
-            g1d[i][j] = g1[i][j]*(1-g1[i][j])
-            
-            i = i+1
-        
-        j = j + 1
-        
-        i = 0
-    
-    #a2 = np.dot(theta_2,g1)+ theta_02
-    #print(a2.shape)
-    #i = 0
-    #j = 0
-    #g2 = np.random.rand(5,2840)
-    #g2d = np.random.rand(5,2840)
-    #while j < 2840 :
-    #    while i < 5 :
-    #        g2[i][j] = 1/(1 + math.exp(-a2[i][j]))
-    #        g2d[i][j] = g2[i][j]*(1-g2[i][j])
-    #        i = i+1
-        
-    #    j = j+1
-    #    i = 0
-    
-    #a3 = np.dot(theta_3,g2)+theta_03
-    #print(a3.shape)
-    #i = 0
-    #j = 0
-    #g3 = np.random.rand(5,2840)
-    #g3d = np.random.rand(5,2840)
-    #while j < 2840 :
-    #    while i < 5 :
-    #        g3[i][j] = 1/(1 + math.exp(-a3[i][j]))
-    #        g3d[i][j] = g3[i][j]*(1-g3[i][j])
-    #        i = i+1
-        
-    #    j = j+1
-    #    i = 0
-    
-    #a4 = np.dot(theta_4,g3)+theta_04
-    #print(a4.shape)
-    #i = 0
-    #j = 0
-    #g4 = np.random.rand(5,2840)
-    #g4d = np.random.rand(5,2840)
-    #while j < 2840 :       
-    #    while i < 5 :
-    #        g4[i][j] = 1/(1 + math.exp(-a4[i][j]))
-    #        g4d[i][j] = g4[i][j]*(1-g4[i][j])
-    #        i = i+1
-            
-    #    j = j+1
-    #    i = 0
-        
-    a5 = np.dot(theta_5,g1)+theta_05
-    i = 0
-    j = 0
-    g5 = np.random.rand(5,2840)
-    g5d = np.random.rand(5,2840)
-    while j < 2840 :
-        while i < 5 :
-            g5[i][j] = 1/(1 + math.exp(-a5[i][j]))
-            g5d[i][j] = g5[i][j]*(1-g5[i][j])
-            i = i+1
-        
-        j = j+1
-        i = 0
         
     #print("forward prop done")
     
     #print(g5.shape)
     cost1 = 0
     def find(a):
-        if a == 0:
-            out = [1,0,0,0,0]
-        else:
-            if a == 1:
-                out = [0,1,0,0,0]
-            else:
-                if a == 2:
-                    out = [0,0,1,0,0]
-                else:
-                    if a == 3:
-                        out = [0,0,0,1,0]
-                    else:
-                        if a == 4:
-                            out = [0,0,0,0,1]
-                        
+        out = [0]*5
+        v = 0        
+        while v <5:
+            if a == v:
+                out[v]=1
+                v = 5
+            v = v+1                        
         return out 
 
 
     p = 0
     q = 0
-    while p < 2840:
+    while p < 2810:
         value = find(newsgroups_train.target[p])
         
         while q < 5:
@@ -185,80 +110,16 @@ while tracker < 100000 :
         
         q = 0
     
-    l = 0.05
-    cost2 = 0
-    square1 = 0 
-    square2 = 0
-    square3 = 0
-    square4 = 0
-    square5 = 0
-    y = 0
-    z = 0
-    while y < 1000:
-        while z < 10 :
-            square1 = square1 + (theta_1[z][y])*(theta_1[z][y])
-            z = z+1
-        
-    
-        y = y+1
-        z = 0
-    
-    y = 0
-    z = 0
+    l = 0
 
-    #while y < 5:
-    #    while z < 5 :
-    #        square2 = square2 + (theta_2[z][y])*(theta_2[z][y])
-    #        z = z+1
-    
-    #    y = y+1
-    #    z = 0       
-        
-    #y = 0
-    #z = 0        
-        
-    #while y < 5:
-    #    while z < 5 :
-    #        square3 = square3 + (theta_3[z][y])*(theta_3[z][y])
-    #        z = z+1
-    
-    #    y = y+1
-    #    z = 0       
-        
-    #y = 0
-    #z = 0   
-
-    #while y < 5:
-    #    while z < 5 :
-    #        square4 = square4 + (theta_4[z][y])*(theta_4[z][y])
-    #        z = z+1
-    
-    #    y = y+1
-    #    z = 0       
-        
-    #y = 0
-    #z = 0   
-
-    while y < 10:
-        while z < 5 :
-            square5 = square5 + (theta_5[z][y])*(theta_5[z][y])
-            z = z+1
-    
-        y = y+1
-        z = 0       
-        
-    y = 0
-    z = 0       
-
-    cost2 = square1 + square2 + square3 + square4 + square5
-    cost = cost1/(2840*2) + cost2*l/(2840*2)
-    print(cost)
+    cost = cost1/(2810*2) 
+    #print(cost)
     
     #print("cost found out")
     
     r = 0
     final = []
-    while r<2840:
+    while r<2810:
         final = final + [find(newsgroups_train.target[r])]
         r = r+1
     
@@ -267,136 +128,88 @@ while tracker < 100000 :
     
     #print("hurdle")
 
-    d5 = np.random.rand(5,2840)
-    p = 0
-    q = 0
-    while p < 2840:    
-        while q < 5 :
-            middle5 =( g5 - ans.T )
-            d5[q][p] = middle5[q][p]*g5d[q][p]
-            q=q+1
+    d5 = ( g5 - ans.T )*g5*(1-g5)    
+    D5 = np.dot(d5,g6.T)
     
-        p = p+1
-        q = 0
+    d6 = np.dot(theta_5.T,d5)*g6*(1-g6)  
+    D6 = np.dot(d6,g4.T)
     
-    p=0
-    q=0
-    #print(d5.T[3])
-    #print(middle5.T[3])
-    #print(g5d.T[3])
+    d4 = np.dot(theta_6.T,d6)*g4*(1-g4)  
+    D4 = np.dot(d4,g3.T)
     
-    D5 = np.dot(d5,g1.T)
-    #print(d5.shape)
-    #print(g4d.shape)
-    #print("task1")
-
-    #d4 = np.random.rand(5,2840)
-    #p = 0
-    #q = 0
-    #while p < 2840:
-    #    while q < 5 :
-    #        middle4 = np.dot(theta_5.T,d5)
-            
-    #        d4[q][p] = (middle4[q][p])*g4d[q][p]
-           
-    #        q=q+1
+    d3 = np.dot(theta_4.T,d4)*g3*(1-g3)  
+    D3 = np.dot(d3,g2.T)
     
-    #    p = p+1
-    #    q = 0
+    d2 = np.dot(theta_3.T,d3)*g2*(1-g2)  
+    D2 = np.dot(d2,g1.T)
     
-    #p=0
-    #q=0
-    
-    #print("take1")
-    
-    #D4 = np.dot(d4,g3.T)
-    
-    #print("task2")
-
-
-    #d3 = np.random.rand(5,2840)
-    #p = 0
-    #q = 0
-    #while p < 2840:    
-    #    while q < 5 :  
-    #        middle3 = np.dot(theta_4.T,d4)
-    #        d3[q][p] = (middle3[q][p])*g3d[q][p]
-    #        q=q+1
-    
-    #    p = p+1
-    #    q = 0
-    
-    #p=0
-    #q=0
-    
-    #D3 = np.dot(d3,g2.T)
-    
-    #print("task3")
-
-    #d2 = np.random.rand(5,2840)
-    #p = 0
-    #q = 0
-    #while p < 2840:    
-    #    while q < 5 :        
-    #        middle2 =np.dot(theta_3.T,d3)
-    #        d2[q][p] = (middle2[q][p])*g2d[q][p]
-    #        q=q+1
-    
-    #    p = p+1
-    #    q = 0
-    
-    #p=0
-    #q=0
-    
-    #D2 = np.dot(d2,g1.T)
-    
-    #print("task4")
-
-
-    d1 = np.random.rand(10,2840)
-    p = 0
-    q = 0
-    while p < 2840:
-        while q < 10 :
-            middle1 =np.dot(theta_5.T,d5)
-            d1[q][p] = (middle1[q][p])*g1d[q][p]
-            q = q+1
-       
-        p = p+1
-        q = 0
-    
-    p=0
-    q=0
-    
+    d1 = np.dot(theta_2.T,d2)*g1*(1-g1)  
     D1 = np.dot(d1,v)
 
     #print("derivative found")
     
-    l1 = 0.75
-    l2 = 0.75
-    l3 = 0.75
-    l4 = 0.75
-    l5 = 0.75
-    l01 = 0.5
-    l02 = 0.5
-    l03 = 0.5
-    l04 = 0.5
-    l05 = 0.5
-    theta_1 = (1-l/28400)*theta_1 - (l1/28400)*D1
-    
-    #theta_2 = (1-l/28400)*theta_2 - (l2/28400)*D2 
-    #theta_3 = (1-l/28400)*theta_3 - (l3/28400)*D3 
-    #theta_4 = (1-l/28400)*theta_4 - (l4/28400)*D4 
-    theta_5 = (1-l/28400)*theta_5 - (l5/28400)*D5 
+    l1 = 20
+    l2 = 20
+    l3 = 20
+    l4 = 20
+    l6 = 20
+    l5 = 20
 
-    theta_01 = theta_01 - (l01/28400)*d1
-    #theta_02 = theta_02 - (l02/28400)*d2
-    #theta_03 = theta_03 - (l03/28400)*d3
-    #theta_04 = theta_04 - (l04/28400)*d4
-    theta_05 = theta_05 - (l05/28400)*d5
+    theta_1 = theta_1 - (l1/2810)*D1
+    theta_2 = theta_2 - (l2/2810)*D2
+    theta_3 = theta_3 - (l3/2810)*D3
+    theta_4 = theta_4 - (l4/2810)*D4
+    theta_6 = theta_6 - (l6/2810)*D6
+    theta_5 = theta_5 - (l5/2810)*D5        
     
-    print(tracker )
+    accuracy = np.random.rand(2810)
+    k = 0
+    a = -1000
+    p = 0
+    while k < 2810 :        
+        while p<5:
+            a = max(a,g5[p][k])                            
+            p = p+1
+        p = 0
+        while p <5:
+            if a == g5[p][k]:
+                accuracy[k]=p               
+                p = 5
+            p = p+1
+        p = 0
+        a = -1000
+        k = k+1
+   
+    tracker = tracker + 1
+    if tracker%200 == 0:
+        print(tracker)
+        print(accuracy_score(accuracy,newsgroups_train.target))
+        
+        vf = np.array(testvectors)
+        g1f = 1/(1 + np.exp(- np.dot(theta_1,vf.T) ))
+        g2f = 1/(1 + np.exp(- np.dot(theta_2,g1f) ))
+        g3f = 1/(1 + np.exp(- np.dot(theta_3,g2f) ))
+        g4f = 1/(1 + np.exp(- np.dot(theta_4,g3f) ))
+        g6f = 1/(1 + np.exp(- np.dot(theta_6,g4f) ))
+        g5f =  1/(1 + np.exp(-np.dot(theta_5,g6f)))
+        measure = np.random.rand(1870)
+        b = 0
+        z = 0
+        m = 0
+        while b < 1870 :
+            while m <5:
+                z = max(z,g5f[m][b])
+                m = m+1
+            m = 0
+            while m<5:        
+                if z == g5f[m][b]:                          
+                    measure[b] = m
+                    m =5
+                m = m+1
+            z = 0
+            b = b+1
+            m = 0
+        print(accuracy_score(measure,newsgroups_test.target))
+    
 
-    tracker = tracker + 1      
-print("test")
-    
+print("end")
