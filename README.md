@@ -241,3 +241,113 @@ while tracker < 5000 :
         print("accuracy")
         print(accuracy_score(measure,newsgroups_test.target[:math.floor(1870*0.1*rs)]))
   
+  # -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 23 13:59:52 2018
+
+@author: lenovo
+"""
+
+#import cv2
+#import math
+#import glob
+#train1images = [cv2.imread(file) for file in glob.glob('file:///C:/Users/lenovo/Desktop/rover/DatasetTennisCNN-CVPR18/ball/*png')]
+#train2images = [cv2.imread(file) for file in glob.glob('file:///C:/Users/lenovo/Desktop/rover/DatasetTennisCNN-CVPR18/no_ball/*png')]
+#print(len(train1images))
+#file:///C:/Users/lenovo/Desktop/rover/DatasetTennisCNN-CVPR18/no_ball/0000000001.png_1024x1920_2_1.png
+import cv2
+import pandas as pd
+import os
+import glob
+import numpy as np
+img_dir = "C:/Users/lenovo/Desktop/rover/DatasetTennisCNN-CVPR18/ball" # Enter Directory of all images data_path = os.path.join(img_dir,'*png')
+files = glob.glob("C:/Users/lenovo/Desktop/rover/DatasetTennisCNN-CVPR18/ball/*.png")
+data = []
+for f1 in files:
+    img = cv2.imread(f1)
+    data.append(img)
+    
+modify = np.array(data)
+import numpy as np
+weights = np.random.normal(0,0.1,(3,3,3))
+#print(weights)
+#print(weights[-1:3,1:3])
+i = 0
+j = 0
+k = 0
+forty = [[[[0,0,0]]*48]*48]*len(data)
+while i<len(data)-2:
+    while j < 48:
+        while k < 48:
+            if j ==0 and k==0:
+                p = data[i][:j+2][:k+2]
+            elif j==0 and k!=0:
+                p = data[i][:j+2][k-1:k+2]
+            elif k ==0 and j!=0:
+                p = data[i][j-1:j+2][:k+2]
+            else :
+                p = data[i][j-1:j+2][k-1:k+2]
+            forty[i][j][k] = np.sum(weights*p)
+            k = k+1
+        k = 0
+        j = j+1
+    j = 0
+    i = i+1
+print(forty[6][3][6])
+            
+        
+#rectified = [[]]*len(data)
+#i = 0
+#j = 0
+#m = 0
+#while m < len(data):
+#    while i < 50:
+#        while j < 50:
+#            rectified[m].append(data[m][i][j])
+#            j = j +1
+#        j = 0
+#        i = i+1
+#    j = 0
+#    i = 0
+#    m = m+1 
+#print(len(rectified))
+#print(len(rectified[1]))
+#print(len(rectified[1][1]))
+#print(rectified[1])
+#print(rectified[1][1])
+#print(len(data))
+#print(len(data[1]))
+#print(len(data[1][1]))
+#print(len(data[1][1][1]))
+#print(data[1])
+#import pandas as pd
+#from pandas.core.api import DataFrame
+#answer = DataFrame.from_records(data)
+#send = pd.DataFrame(answer)
+#send.index +=1 
+#submission = send.to_csv('ballimag1.csv',header=False,index=False)
+#train_data = pd.read_csv('file:///C:/Users/lenovo/Desktop/rover/ballimag.csv',header=None)
+#b = (train_data).values.tolist()
+#print(len(b))
+#c = b[1:80000]
+#print(len(c))
+#print(len(c[1]))
+#print(len(c[1][1]))
+#print(len(c[1][1][1]))
+#print(c[1])
+#print(c[1][1])
+#print(c[1][1][1])
+
+
+#print(data[1])
+
+#import cv2
+#import os
+
+#def load_images_from_folder(folder):
+#    images = []
+#    for filename in os.listdir(folder):
+#        img = cv2.imread(os.path.join(folder,filename))
+#       if img is not None:
+#            images.append(img)
+#   return images
